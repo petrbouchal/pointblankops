@@ -63,7 +63,7 @@
 <div class="page-header"><h1 id="pointblankops">pointblankops<a class="anchor" aria-label="anchor" href="#pointblankops"></a>
 </h1></div>
 <!-- badges: start -->
-
+<!-- badges: end -->
 <p>The goal of pointblankops is to provide specialized data validation operations using lightweight operatives for focused intelligence gathering. It offers memory-efficient alternatives to pointblank agents for failure detection and reporting.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -71,7 +71,7 @@
 <p>You can install the development version of pointblankops from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"petrbouchal/pointblankops"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"petrbouchal/pointblankops"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -95,15 +95,19 @@
 <span>  <span class="fu">pointblank</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/pointblank/reference/col_vals_between.html" class="external-link">col_vals_between</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, left <span class="op">=</span> <span class="fl">5</span>, right <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Debrief the operative to get only the failures</span></span>
-<span><span class="va">failures</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/debrief.html">debrief</a></span><span class="op">(</span><span class="va">operative</span>, row_id_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"batch"</span>, <span class="st">"id"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">failures</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># For database operations, install DBI package:</span></span>
-<span><span class="co"># install.packages("DBI")</span></span>
-<span></span>
-<span><span class="co"># For parquet file operations, install arrow package:</span></span>
-<span><span class="co"># install.packages("arrow")</span></span></code></pre></div>
+<span><span class="va">failures</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/debrief.html">debrief</a></span><span class="op">(</span><span class="va">operative</span>, row_id_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"batch"</span>, <span class="st">"id"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">failures</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 6</span></span>
+<span><span class="co">#&gt;   batch id    test_name test_type         column_name failure_details           </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;       &lt;chr&gt;                     </span></span>
+<span><span class="co">#&gt; 1 A     2     step_1    col_vals_not_null value       Failed col_vals_not_null …</span></span></code></pre></div>
+<p>For database operations, install DBI package:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"DBI"</span><span class="op">)</span></span></code></pre></div>
+<p>For parquet file operations, install arrow package:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"arrow"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
@@ -121,7 +125,7 @@
 <li>
 <strong>Flexible ID columns</strong>: Support for multiple row identifier columns</li>
 <li>
-<strong>Whimsical naming</strong>: Follows pointblank’s playful terminology (agents → operatives, interrogate → debrief)</li>
+<strong>Consistent naming</strong>: Follows pointblank’s playful terminology (agents → operatives, interrogate → debrief)</li>
 </ul>
 </div>
 </div>
