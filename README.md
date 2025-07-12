@@ -8,10 +8,16 @@
 
 <!-- badges: end -->
 
-The goal of pointblankops is to provide specialized data validation
-operations using lightweight operatives for focused intelligence
-gathering. It offers memory-efficient alternatives to pointblank agents
-for failure detection and reporting.
+`{pointblankops}` extends the functionality of the
+[`{pointblank}`](https://rstudio.github.io/pointblank/) to enable
+efficient row-level failure reporting.
+
+It adds the concept of **operatives** as lightweight alternatives to
+pointblank’s agents, designed for streamlined data validation and
+reporting. Operatives are memory-efficient and can handle large datasets
+by processing them in chunks. You get information from them by
+`debrief()`ing them, which returns a tibble of failures with specified
+row identifiers.
 
 ## Installation
 

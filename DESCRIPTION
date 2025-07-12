@@ -1,11 +1,10 @@
 Package: pointblankops
-Title: Operational Extensions for Pointblank
+Title: Extending Pointblank with Precision Failure Analysis
 Version: 0.1.0
 Authors@R: 
     person("Petr", "Bouchal", , "pbouchal@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0471-716X"))
-Description: Specialized data validation operations using operatives for focused 
-    intelligence gathering. Provides lightweight alternatives to pointblank agents 
+Description: Extension of Pointblank providing lightweight alternatives to pointblank agents 
     for efficient failure detection and reporting.
 License: MIT + file LICENSE
 Encoding: UTF-8
