@@ -1,0 +1,40 @@
+url: https://petrbouchal.github.io/pointblankops/
+template:
+  light-switch: true
+  opengraph:
+    image:
+      src: man/figures/card.png
+      alt: "pointblankops package"
+    twitter:
+      creator: "@petrbouchal"
+      card: summary_large_image
+  bslib:
+    version: 5
+    brand: pkgdown/_brand.yml
+
+navbar:
+  structure:
+    left: [home, intro, reference, articles, news]
+    right: [lightswitch, github, personal]
+  components:
+    personal:
+      icon: "fa-asterisk fa-lg"
+      href: https://petrbouchal.xyz/
+      aria-label: "Personal homepage"
+
+reference:
+- title: Core workflow
+  desc: >
+    Functions for creating operatives and extracting validation failures
+  contents:
+  - create_operative
+  - debrief
+- title: Additional tools
+  desc: >
+    Helper functions and utilities
+  contents:
+  - has_concept("Additional tools")
+
+destination: docs
+development:
+  mode: auto

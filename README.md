@@ -1,0 +1,72 @@
+
+
+<!-- README.md is generated from README.qmd. Please edit that file -->
+
+# pointblankops
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+The goal of pointblankops is to provide specialized data validation
+operations using lightweight operatives for focused intelligence
+gathering. It offers memory-efficient alternatives to pointblank agents
+for failure detection and reporting.
+
+## Installation
+
+You can install the development version of pointblankops from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("petrbouchal/pointblankops")
+```
+
+## Example
+
+This is a basic example which shows you how to use operatives for data
+validation:
+
+``` r
+library(pointblankops)
+library(dplyr)
+
+# Create some test data
+test_data <- data.frame(
+  batch = c("A", "A", "B", "B", "C"),
+  id = c(1, 2, 3, 4, 5),
+  value = c(10, NA, 15, 8, 12),
+  category = c("X", "Y", "X", "Z", "Y")
+)
+
+# Create an operative and add validation steps
+operative <- create_operative(test_data) %>%
+  pointblank::col_vals_not_null(columns = dplyr::vars(value)) %>%
+  pointblank::col_vals_between(columns = dplyr::vars(value), left = 5, right = 20)
+
+# Debrief the operative to get only the failures
+failures <- debrief(operative, row_id_col = c("batch", "id"))
+
+print(failures)
+
+# For database operations, install DBI package:
+# install.packages("DBI")
+
+# For parquet file operations, install arrow package:
+# install.packages("arrow")
+```
+
+## Key Features
+
+- **Lightweight operatives**: Streamlined alternatives to pointblank
+  agents
+- **Memory-efficient processing**: Chunked processing for large
+  datasets  
+- **Multiple output formats**: Return tibbles, save to parquet files, or
+  write to databases
+- **Database compatibility**: Works with local data frames and database
+  tables (DuckDB, SQLite)
+- **Flexible ID columns**: Support for multiple row identifier columns
+- **Whimsical naming**: Follows pointblank’s playful terminology (agents
+  → operatives, interrogate → debrief)

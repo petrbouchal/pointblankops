@@ -1,0 +1,209 @@
+---
+title: "Getting Started with Pointblank Operatives"
+format: 
+  html:
+    df-print: tibble
+vignette: >
+  %\VignetteIndexEntry{Getting Started with Operatives}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = TRUE
+)
+```
+
+```{r setup, include = FALSE}
+library(pointblankops)
+library(dplyr)
+library(pointblank)
+library(arrow)
+```
+
+## Introduction
+
+The `pointblankops` package provides specialized data validation operations using lightweight operatives for focused intelligence gathering. Operatives are streamlined alternatives to pointblank agents, designed for efficient row-level failure detection without the overhead of full reporting capabilities.
+
+The use case that this solves is the following:
+
+- data is large so can be out of memory
+- we run tests on data to understand which rows fail which test, because downstream we exclude different rows in different situations depending on the purpose of the analysis
+- so we need per-row validation results to use in post-processing
+
+Extracting this from an interrogated agent it tedious and memory-intensive.
+
+To preserve memory and allow working on large datasets, operatives focus on extracting validation failures directly, without the full reporting overhead of pointblank agents. 
+
+- Per-row validation results are returned in a tidy format, making it easy to integrate with other data processing workflows. 
+- They can be stored directly in a database or saved to a file format like Parquet for further analysis, all done efficiently with minimal memory footprint.
+- Validation failure information can also be returned as a tibble for immediate use in R.
+
+## Creating Operatives
+
+Operatives are created using the `create_operative()` function, which is a lightweight wrapper around pointblank's `create_agent()`:
+
+```{r}
+#| label: create-operative
+# Create test data
+test_data <- data.frame(
+  batch = c("A", "A", "B", "B", "C"),
+  id = c(1, 2, 3, 4, 5),
+  value = c(10, NA, 15, 8, 12),
+  category = c("X", "Y", "X", "Z", "Y")
+)
+
+# Create an operative
+operative <- create_operative(test_data, tbl_name = "test_data", label = "Test Operative")
+```
+
+```{r, include = FALSE}
+export_report(operative, "operative.html")
+```
+
+```{r, eval = FALSE}
+operative
+```
+
+```{=html}
+<iframe width="780" height="200" src="operative.html" title="Operative"></iframe>
+```
+## Adding Validation Steps
+
+Just like pointblank agents, operatives can have validation steps added to them:
+
+```{r}
+#| label: validation-steps
+operative <- operative |>
+  col_vals_not_null(columns = vars(value)) |>
+  col_vals_between(columns = vars(value), left = 5, right = 20) |>
+  col_vals_in_set(columns = vars(category), set = c("X", "Y", "Z"))
+```
+
+## Debriefing Operatives
+
+The core functionality is the `debrief()` function, which extracts only the validation failures:
+
+```{r}
+#| label: basic-debrief
+# Get failures as a tibble
+failures <- debrief(operative, row_id_col = c("batch", "id"))
+
+```
+
+```{r}
+failures
+```
+## Output Options
+
+The `debrief()` function supports multiple output formats:
+
+### 1. Return as Tibble (default)
+
+```{r}
+#| label: tibble-output
+failures <- debrief(operative, row_id_col = c("batch", "id"))
+```
+
+```{r}
+failures
+```
+### 2. Save to Parquet File
+
+```{r}
+#| label: parquet-output
+debrief(operative, 
+        row_id_col = c("batch", "id"), 
+        parquet_path = "validation_failures.parquet")
+
+```
+```{r}
+read_parquet("validation_failures.parquet")
+```
+
+### 3. Save to Database
+
+```{r}
+#| label: database-output
+con <- DBI::dbConnect(duckdb::duckdb(), ":memory:")
+
+# Copy test data to database
+DBI::dbWriteTable(con, "test_data", test_data)
+
+# Create operative from database table
+db_operative <- create_operative(test_data) |>
+  col_vals_not_null(columns = vars(value)) |>
+  col_vals_between(columns = vars(value), left = 5, right = 20)
+
+# Save failures to database table
+debrief(db_operative, 
+        row_id_col = c("batch", "id"), 
+        con = con, 
+        output_tbl = "validation_failures")
+```
+
+```{r}
+tbl(con, "validation_failures") |>
+  collect()
+```
+
+```{r include = FALSE}
+DBI::dbDisconnect(con)
+```
+
+## Memory Efficiency
+
+For large datasets, `debrief()` processes data in chunks to maintain memory efficiency:
+
+```{r}
+#| label: chunked-processing
+# Process in smaller chunks for memory efficiency
+failures <- debrief(operative, 
+                   row_id_col = c("batch", "id"),
+                   chunk_size = 500)  # Process 500 rows at a time
+```
+
+```{r}
+failures
+```
+
+## Database Compatibility
+
+Operatives work seamlessly with database tables via dbplyr:
+
+```{r}
+#| label: database-compatibility
+con <- DBI::dbConnect(duckdb::duckdb(), ":memory:")
+DBI::dbWriteTable(con, "large_table", test_data)
+
+# Create operative from database table
+db_operative <- create_operative(dplyr::tbl(con, "large_table")) |>
+  col_vals_not_null(columns = vars(value)) |> 
+  col_vals_gt(value, 8)
+
+# Debrief processes the query efficiently in the database
+failures <- debrief(db_operative, row_id_col = c("batch", "id"))
+```
+
+```{r}
+failures
+```
+
+```{r, include = FALSE}
+DBI::dbDisconnect(con)
+```
+
+## Supported Validation Types
+
+The following pointblank validation functions are supported:
+
+- `col_vals_not_null()` / `col_vals_null()`
+- `col_vals_between()` / `col_vals_not_between()`
+- `col_vals_in_set()` / `col_vals_not_in_set()`
+- `col_vals_gt()` / `col_vals_gte()` / `col_vals_lt()` / `col_vals_lte()`
+- `col_vals_equal()` / `col_vals_not_equal()`
+
+Unsupported validation types are automatically skipped with a message.

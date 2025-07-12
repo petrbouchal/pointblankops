@@ -1,0 +1,9 @@
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^man/figures/card\.png$
+^\.github$
+^README\.qmd$
+^vignettes/\.quarto$
+^vignettes/*_files$
+^\.claude$

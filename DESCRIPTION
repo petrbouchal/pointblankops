@@ -1,0 +1,30 @@
+Package: pointblankops
+Title: Operational Extensions for Pointblank
+Version: 0.1.0
+Authors@R: 
+    person("Petr", "Bouchal", , "pbouchal@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0471-716X"))
+Description: Specialized data validation operations using operatives for focused 
+    intelligence gathering. Provides lightweight alternatives to pointblank agents 
+    for efficient failure detection and reporting.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    pointblank,
+    dplyr,
+    tibble,
+    rlang
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    quarto,
+    DBI,
+    arrow,
+    duckdb,
+    RSQLite
+VignetteBuilder: quarto
+URL: https://petrbouchal.github.io/pointblankops/, https://github.com/petrbouchal/pointblankops
+BugReports: https://github.com/petrbouchal/pointblankops/issues

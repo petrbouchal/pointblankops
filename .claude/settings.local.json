@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__r-acquaint__btw_tool_session_package_info",
+      "mcp__r-acquaint__btw_tool_docs_help_page",
+      "WebFetch(domain:github.com)",
+      "Bash(Rscript:*)",
+      "Bash(mkdir:*)",
+      "Bash(R:*)",
+      "Bash(mv:*)",
+      "Bash(quarto render:*)",
+      "WebFetch(domain:raw.githubusercontent.com)"
+    ],
+    "deny": []
+  }
+}
