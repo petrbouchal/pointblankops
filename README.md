@@ -6,6 +6,7 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/petrbouchal/pointblankops/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/petrbouchal/pointblankops/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of pointblankops is to provide specialized data validation
