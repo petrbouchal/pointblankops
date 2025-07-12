@@ -5,16 +5,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Operational Extensions for Pointblank • pointblankops</title>
+<title>Extending Pointblank with Precision Failure Analysis • pointblankops</title>
 <script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="https://fonts.bunny.net/css?family=IBM%20Plex%20Sans:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&amp;display=auto" rel="stylesheet">
 <link href="https://fonts.bunny.net/css?family=IBM%20Plex%20Code:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&amp;display=auto" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Operational Extensions for Pointblank">
-<meta name="description" content="Specialized data validation operations using operatives for focused intelligence gathering. Provides lightweight alternatives to pointblank agents for efficient failure detection and reporting.">
-<meta property="og:description" content="Specialized data validation operations using operatives for focused intelligence gathering. Provides lightweight alternatives to pointblank agents for efficient failure detection and reporting.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extending Pointblank with Precision Failure Analysis">
+<meta name="description" content="Extension of Pointblank providing lightweight alternatives to pointblank agents for efficient failure detection and reporting.">
+<meta property="og:description" content="Extension of Pointblank providing lightweight alternatives to pointblank agents for efficient failure detection and reporting.">
 <meta property="og:image" content="https://petrbouchal.github.io/pointblankops/reference/figures/card.png">
 <meta property="og:image:alt" content="pointblankops package">
 <meta name="twitter:card" content="summary_large_image">
@@ -64,7 +64,8 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of pointblankops is to provide specialized data validation operations using lightweight operatives for focused intelligence gathering. It offers memory-efficient alternatives to pointblank agents for failure detection and reporting.</p>
+<p><a href="https://petrbouchal.github.io/pointblankops/">pointblankops</a> extends the functionality of the <a href="https://rstudio.github.io/pointblank/" class="external-link"><code>{pointblank}</code></a> to enable efficient row-level failure reporting.</p>
+<p>It adds the concept of <strong>operatives</strong> as lightweight alternatives to pointblank’s agents, designed for streamlined data validation and reporting. Operatives are memory-efficient and can handle large datasets by processing them in chunks. You get information from them by <code><a href="reference/debrief.html">debrief()</a></code>ing them, which returns a tibble of failures with specified row identifiers.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
