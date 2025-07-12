@@ -1,4 +1,5 @@
 #' @importFrom rlang .data
+#' @importFrom rlang %||%
 NULL
 
 #' Debrief operative and extract failure intelligence

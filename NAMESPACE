@@ -2,4 +2,5 @@
 
 export(create_operative)
 export(debrief)
+importFrom(rlang,"%||%")
 importFrom(rlang,.data)

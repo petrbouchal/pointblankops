@@ -27,7 +27,7 @@ You can install the development version of pointblankops from [GitHub](https://g
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("petrbouchal/pointblankops")
+remotes::install_github("petrbouchal/pointblankops")
 ```
 
 ## Example
@@ -36,7 +36,9 @@ This is a basic example which shows you how to use operatives for data validatio
 
 ```{r}
 #| label: example
-#| eval: false
+#| eval: true
+#| message: false
+#| warning: false
 library(pointblankops)
 library(dplyr)
 
@@ -55,14 +57,24 @@ operative <- create_operative(test_data) %>%
 
 # Debrief the operative to get only the failures
 failures <- debrief(operative, row_id_col = c("batch", "id"))
+```
 
-print(failures)
+```{r}
+failures
+```
 
-# For database operations, install DBI package:
-# install.packages("DBI")
 
-# For parquet file operations, install arrow package:
-# install.packages("arrow")
+
+For database operations, install DBI package:
+
+```r
+install.packages("DBI")
+```
+
+For parquet file operations, install arrow package:
+
+```r
+install.packages("arrow")
 ```
 
 ## Key Features
@@ -72,4 +84,4 @@ print(failures)
 - **Multiple output formats**: Return tibbles, save to parquet files, or write to databases
 - **Database compatibility**: Works with local data frames and database tables (DuckDB, SQLite)
 - **Flexible ID columns**: Support for multiple row identifier columns
-- **Whimsical naming**: Follows pointblank's playful terminology (agents → operatives, interrogate → debrief)
+- **Consistent naming**: Follows pointblank's playful terminology (agents → operatives, interrogate → debrief)

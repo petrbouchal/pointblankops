@@ -6,7 +6,6 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/petrbouchal/pointblankops/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/petrbouchal/pointblankops/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of pointblankops is to provide specialized data validation
@@ -21,7 +20,7 @@ You can install the development version of pointblankops from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("petrbouchal/pointblankops")
+remotes::install_github("petrbouchal/pointblankops")
 ```
 
 ## Example
@@ -48,14 +47,26 @@ operative <- create_operative(test_data) %>%
 
 # Debrief the operative to get only the failures
 failures <- debrief(operative, row_id_col = c("batch", "id"))
+```
 
-print(failures)
+``` r
+failures
+#> # A tibble: 1 × 6
+#>   batch id    test_name test_type         column_name failure_details           
+#>   <chr> <chr> <chr>     <chr>             <chr>       <chr>                     
+#> 1 A     2     step_1    col_vals_not_null value       Failed col_vals_not_null …
+```
 
-# For database operations, install DBI package:
-# install.packages("DBI")
+For database operations, install DBI package:
 
-# For parquet file operations, install arrow package:
-# install.packages("arrow")
+``` r
+install.packages("DBI")
+```
+
+For parquet file operations, install arrow package:
+
+``` r
+install.packages("arrow")
 ```
 
 ## Key Features
@@ -69,5 +80,5 @@ print(failures)
 - **Database compatibility**: Works with local data frames and database
   tables (DuckDB, SQLite)
 - **Flexible ID columns**: Support for multiple row identifier columns
-- **Whimsical naming**: Follows pointblank’s playful terminology (agents
-  → operatives, interrogate → debrief)
+- **Consistent naming**: Follows pointblank’s playful terminology
+  (agents → operatives, interrogate → debrief)
